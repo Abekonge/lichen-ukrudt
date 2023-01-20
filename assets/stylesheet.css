@@ -4,22 +4,20 @@ html {
   -webkit-text-size-adjust: none;
 }
 body {
-  margin: 2rem auto;
-  padding: 0 1rem;
-  font-family: sans-serif;
-  background: white;
-  color: black;
-  max-width: 72ch;
-  line-height: 1.5rem;
+	margin: 2rem auto;
+	padding: 0 1rem;
+	font-family: sans-serif;
+	background:  yellow;
+	color: black;
+	max-width: 72ch;
+	line-height: 1.5rem;
 }
-h1,
-h2,
-h3 {
-  color: gray;
-  margin-bottom: 1rem;
-  margin-top: 1rem;
-  font-weight: 300;
-  line-height: 1.1;
+h1,h2,h3 {
+	color: green;
+	margin-bottom: 1rem;
+	margin-top: 1rem;
+	font-weight: 300;
+	line-height: 1.1;
 }
 h1 {
   margin-top: 4rem;

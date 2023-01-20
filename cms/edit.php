@@ -6,7 +6,7 @@
 	}
 	set_exception_handler('exception_handler');
 
-	define("EDITABLE_EXTENSIONS", ["gmi", "md"]);
+	define("EDITABLE_EXTENSIONS", ["gmi", "md", "css", "html"]);
 
 	// patch up PATH_INFO in case it is unset
 	if(!array_key_exists('PATH_INFO', $_SERVER) || $_SERVER['PATH_INFO'] == "") {
@@ -395,7 +395,7 @@
 	<script>
 		'use strict';
 		
-		const REQ_PATH = '<?php echo $_SERVER['PATH_INFO']; ?>';
+		let REQ_PATH = '<?php echo $_SERVER['PATH_INFO']; ?>';
 		
 		function debounce(callback, delay) {
 			let id = null;
@@ -410,6 +410,7 @@
 		let contentModified = false;
 		let scrollX = 0;
 		let scrollY = 0;
+
 		async function applyContent() {
 			const input = document.getElementById('content');
 			const preview = document.getElementById('preview');
@@ -432,7 +433,7 @@
 			if (REQ_PATH.indexOf(".md") !== -1) {
 				contentType == "text/markdown"
 			}
-			
+
 			const res = await fetch('/cms/render.php' + REQ_PATH, {
 				method: 'POST',
 				headers: {
@@ -449,12 +450,41 @@
 			preview.addEventListener('load', function() {
 				preview.contentWindow.scrollTo({top: scrollY, left: scrollX, behavior: 'instant'});
 			}, {once: true});
-			preview.srcdoc = await res.text();
+			// todo: when css set srcdoc to saved thing, rendered
+			let renderablePreview;
+			if (REQ_PATH.includes(".css")) {
+				renderablePreview = localStorage.getItem('renderablePreview') ?? '';
+				// console.log(renderablePreview);
+				console.log('applyContent')
+				preview.srcdoc = renderablePreview;
+				// let _innerHTML = preview.contentDocument.body.innerHTML
+				// _innerHTML = _innerHTML + `<style>${document.getElementById('content').value}</style>`;
+			} else {
+				let _preview = await res.text();
+				localStorage.setItem('renderablePreview', _preview);
+				// console.log('preview', _preview)
+				preview.srcdoc = _preview;
+			}
+			// preview.srcdoc = await res.text();
 		}
 		
-		window.addEventListener('DOMContentLoaded', applyContent, {once: true});
+		window.addEventListener('DOMContentLoaded', () => {
+				applyContent()
+		}, 
+		{once: true});
 		window.addEventListener('DOMContentLoaded', function() {
-			const onContentInput = debounce(applyContent, 1000);
+			const onContentInput = debounce(() => {
+				if (REQ_PATH.includes(".css")) {
+					let preview = document.getElementById('preview')
+					const styles = preview.contentDocument.body.innerHTML + `<style>${document.getElementById('content').value}</style>`;
+					console.log('inject styles');
+					preview.contentDocument.body.innerHTML = styles;
+					// enable save button
+					document.getElementById('save').disabled = false;
+				} else {
+					applyContent();
+				}
+			}, 1000);
 			const input = document.getElementById('content');
 			input.focus();
 			input.addEventListener('input', onContentInput);
@@ -468,11 +498,11 @@
 				return 'Unsaved changes will be lost.';
 			});
 			
-			const preview = document.getElementById('preview');
-			preview.addEventListener('load', function(event) {
-				// TODO: handle navigation
-				// console.log(event, event.target.contentWindow.location);
-			});
+			// const preview = document.getElementById('preview');
+			// preview.addEventListener('load', function(event) {
+			// 	// TODO: handle navigation
+			// 	// console.log(event, event.target.contentWindow.location);
+			// });
 		}, {once: true});
 		
 
