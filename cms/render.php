@@ -31,8 +31,8 @@
 	}
 	
 	// pull out variables for convenience
-	$title = $_content['title'];
-	$body = $_content['body'];
+	$title = $_content['title'] ?? '';
+	$body = $_content['body'] ?? '';
 	
 	fclose($_src);
 	

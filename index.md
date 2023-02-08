@@ -1,4 +1,6 @@
-# Lichen
+# Baagøe og Riber grunden
+
+<menu>🌱 [Forside]() </menu>
 
 Welcome! Put your own content here.
 
@@ -7,7 +9,7 @@ Welcome! Put your own content here.
 [Lichen](https://lichen.sensorstation.co)
 
 
-## License
+## Licensez
 
 ```
 The MIT License (MIT)
