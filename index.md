@@ -1,11 +1,5 @@
-# Lichen
-
+<!-- PAGE NAME: -->
 Welcome! Put your own content here.
-
-[Cheatsheet](/cheatsheet)
-
-[Lichen](https://lichen.sensorstation.co)
-
 
 ## License
 
