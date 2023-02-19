@@ -1,4 +1,5 @@
-<!-- PAGE NAME: -->
+<!-- TITLE: LICHEN-PUNK HOME -->
+
 Welcome! Put your own content here.
 
 ## License

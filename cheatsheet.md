@@ -71,6 +71,12 @@ Here's a sentence with a footnote. [^1]
 
 [^1]: This is the footnote.
 
+## Code comment 
+
+<!-- This is a comment -->
+
+A comment will not be displayed, it is used for leaving comments for people editing the source of a page.
+
 ## Heading ID
 
 ### Heading with an id {#cool-id}
