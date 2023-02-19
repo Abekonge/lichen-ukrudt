@@ -35,3 +35,11 @@ docker build -t lichen:latest .
 docker run -d -p 80:80 -v $(pwd)/lichen-with-markdown:/var/www/html lichen:latest
 ```
 
+### Debugging rendering
+
+You can debug rendered html with this trick, where $variable is a variable containing an html string.
+
+´´´
+echo ("<textarea>" . json_encode($variable) . "</textarea>");
+´´´
+
