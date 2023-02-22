@@ -1,4 +1,4 @@
-# lichen-with-markdown
+# lichen-punk v0.1.0
 
 A fork of Lichen CMS that supports Markdown and Gemtext.
 
